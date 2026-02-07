@@ -41,11 +41,21 @@ log_warning() {
 ################################################################################
 get_latest_run() {
     log_info "Fetching latest workflow run..."
-    gh run list --repo "$REPO" --branch "$BRANCH" --limit 1 --json databaseId,conclusion,status --query '[0]' > /tmp/latest_run.json
+    gh run list --repo "$REPO" --branch "$BRANCH" --limit 1 --json databaseId,conclusion,status > /tmp/latest_run.json 2>/dev/null
 
-    RUN_ID=$(jq -r '.databaseId' /tmp/latest_run.json)
-    CONCLUSION=$(jq -r '.conclusion' /tmp/latest_run.json)
-    STATUS=$(jq -r '.status' /tmp/latest_run.json)
+    if [ ! -f /tmp/latest_run.json ]; then
+        log_error "Failed to fetch latest run"
+        return 1
+    fi
+
+    RUN_ID=$(jq -r '.[0].databaseId' /tmp/latest_run.json 2>/dev/null)
+    CONCLUSION=$(jq -r '.[0].conclusion' /tmp/latest_run.json 2>/dev/null)
+    STATUS=$(jq -r '.[0].status' /tmp/latest_run.json 2>/dev/null)
+
+    if [ -z "$RUN_ID" ] || [ "$RUN_ID" = "null" ]; then
+        log_error "Could not parse run information"
+        return 1
+    fi
 
     log_info "Run ID: $RUN_ID | Status: $STATUS | Conclusion: $CONCLUSION"
 }
@@ -188,10 +198,20 @@ wait_for_new_build() {
         wait_count=$((wait_count + 10))
 
         # Get latest run again
-        get_latest_run
+        if ! get_latest_run; then
+            continue
+        fi
 
-        if [ "$RUN_ID" != "$(jq -r '.databaseId' /tmp/latest_run.json)" ] 2>/dev/null; then
-            log_success "New build detected!"
+        # Compare with previous run (if available)
+        if [ -f /tmp/prev_run_id.txt ]; then
+            PREV_RUN_ID=$(cat /tmp/prev_run_id.txt)
+            if [ "$RUN_ID" != "$PREV_RUN_ID" ]; then
+                log_success "New build detected!"
+                echo "$RUN_ID" > /tmp/prev_run_id.txt
+                return 0
+            fi
+        else
+            echo "$RUN_ID" > /tmp/prev_run_id.txt
             return 0
         fi
     done
@@ -217,7 +237,11 @@ main() {
         log_info "Attempt $RETRY_COUNT/$MAX_RETRIES"
 
         # Get latest run status
-        get_latest_run
+        if ! get_latest_run; then
+            log_error "Failed to fetch run status, retrying..."
+            sleep 10
+            continue
+        fi
 
         # Wait if build is in progress
         if is_build_in_progress; then
