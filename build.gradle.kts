@@ -156,10 +156,16 @@ subprojects {
                         keystore.inputStream().use(this::load)
                     }
 
-                    storeFile = rootProject.file("release.keystore")
-                    storePassword = prop.getProperty("keystore.password")!!
-                    keyAlias = prop.getProperty("key.alias")!!
-                    keyPassword = prop.getProperty("key.password")!!
+                    val storePassword = prop.getProperty("keystore.password")?.takeIf { it.isNotBlank() }
+                    val keyAlias = prop.getProperty("key.alias")?.takeIf { it.isNotBlank() }
+                    val keyPassword = prop.getProperty("key.password")?.takeIf { it.isNotBlank() }
+
+                    if (storePassword != null && keyAlias != null && keyPassword != null) {
+                        storeFile = rootProject.file("release.keystore")
+                        this.storePassword = storePassword
+                        this.keyAlias = keyAlias
+                        this.keyPassword = keyPassword
+                    }
                 }
             }
         }
