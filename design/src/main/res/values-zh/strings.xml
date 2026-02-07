@@ -260,4 +260,82 @@
     <string name="external_control_stopped">Clash.Meta 服务已停止</string>
     <string name="import_from_qr_no_permission">相机权限受限，请前往设置开启。</string>
     <string name="import_from_qr_exception">发生系统未知异常，操作失败。</string>
+
+    <!-- Auth -->
+    <string name="sign_in">登录</string>
+    <string name="sign_up">注册</string>
+    <string name="sign_in_subtitle">登录到您的账户</string>
+    <string name="sign_up_subtitle">创建一个新账户</string>
+    <string name="email">邮箱</string>
+    <string name="password">密码</string>
+    <string name="confirm_password">确认密码</string>
+    <string name="new_password">新密码</string>
+    <string name="invite_code">邀请码</string>
+    <string name="email_code">邮箱验证码</string>
+    <string name="send_code">发送验证码</string>
+    <string name="forgot_password">忘记密码</string>
+    <string name="forgot_password_link">忘记密码？</string>
+    <string name="forgot_password_subtitle">通过邮箱重置密码</string>
+    <string name="reset_password">重置密码</string>
+    <string name="no_account">还没有账户？</string>
+    <string name="have_account">已有账户？</string>
+    <string name="remember_password">记得密码？</string>
+    <string name="email_required">请输入邮箱</string>
+    <string name="password_required">请输入密码</string>
+    <string name="passwords_not_match">两次密码不一致</string>
+    <string name="email_code_required">请输入邮箱验证码</string>
+    <string name="network_error">网络错误，请检查您的网络连接。</string>
+    <string name="send_code_failed">发送验证码失败</string>
+    <string name="password_reset_success">密码重置成功</string>
+    <string name="logout">退出登录</string>
+    <string name="select_language">选择语言</string>
+    <string name="language_system">跟随系统</string>
+    <string name="email_suffix_hint">允许的邮箱后缀：%s</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard">仪表盘</string>
+    <string name="user_info">用户信息</string>
+    <string name="no_plan">暂无套餐</string>
+    <string name="no_expiry">无过期时间</string>
+    <string name="format_data_usage">%1$s / %2$s</string>
+    <string name="format_expires">到期时间：%s</string>
+    <string name="format_server_nodes">服务器节点 (%d)</string>
+    <string name="purchase_plan">购买套餐</string>
+
+    <!-- User Info -->
+    <string name="account_info">账户信息</string>
+    <string name="current_plan">当前套餐</string>
+    <string name="data_usage">流量使用</string>
+    <string name="expiry_date">到期日期</string>
+    <string name="account_balance">账户余额</string>
+
+    <!-- Purchase -->
+    <string name="choose_plan">选择套餐</string>
+    <string name="choose_plan_subtitle">选择一个订阅套餐</string>
+    <string name="format_price_month">%s/月</string>
+    <string name="format_price_quarter">%s/季</string>
+    <string name="format_price_year">%s/年</string>
+    <string name="format_price_onetime">%s 一次性</string>
+    <string name="free">免费</string>
+
+    <!-- Checkout -->
+    <string name="checkout">结算</string>
+    <string name="order_summary">订单摘要</string>
+    <string name="plan_label">套餐</string>
+    <string name="period_label">周期</string>
+    <string name="select_period">选择周期</string>
+    <string name="coupon_code">优惠券代码（可选）</string>
+    <string name="payment_method">支付方式</string>
+    <string name="pay_now">立即支付</string>
+    <string name="monthly">月付</string>
+    <string name="quarterly">季付</string>
+    <string name="semi_annually">半年付</string>
+    <string name="annually">年付</string>
+    <string name="two_years">两年付</string>
+    <string name="three_years">三年付</string>
+    <string name="one_time">一次性</string>
+    <string name="payment_success">支付成功</string>
+    <string name="checkout_failed">结算失败</string>
+    <string name="order_failed">创建订单失败</string>
+    <string name="unable_to_open_payment">无法打开支付页面</string>
 </resources>

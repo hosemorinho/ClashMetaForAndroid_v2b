@@ -13,6 +13,7 @@ class LoginDesign(context: Context) : Design<LoginDesign.Request>(context) {
         data class Login(val email: String, val password: String) : Request()
         object OpenRegister : Request()
         object OpenForgotPassword : Request()
+        object ChangeLanguage : Request()
     }
 
     private val binding = DesignLoginBinding
@@ -39,6 +40,10 @@ class LoginDesign(context: Context) : Design<LoginDesign.Request>(context) {
         requests.trySend(Request.OpenForgotPassword)
     }
 
+    fun requestChangeLanguage() {
+        requests.trySend(Request.ChangeLanguage)
+    }
+
     suspend fun setLoading(loading: Boolean) {
         withContext(Dispatchers.Main) {
             binding.loading = loading
@@ -60,6 +65,12 @@ class LoginDesign(context: Context) : Design<LoginDesign.Request>(context) {
     suspend fun setGeneralError(error: String?) {
         withContext(Dispatchers.Main) {
             binding.generalError = error
+        }
+    }
+
+    suspend fun setLanguageLabel(label: String) {
+        withContext(Dispatchers.Main) {
+            binding.languageLabel = label
         }
     }
 }

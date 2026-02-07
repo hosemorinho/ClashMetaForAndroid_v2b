@@ -376,6 +376,9 @@
     <string name="send_code_failed">Failed to send verification code</string>
     <string name="password_reset_success">Password reset successfully</string>
     <string name="logout">Logout</string>
+    <string name="select_language">Select Language</string>
+    <string name="language_system">Follow System</string>
+    <string name="email_suffix_hint">Allowed email suffixes: %s</string>
 
     <!-- Dashboard -->
     <string name="dashboard">Dashboard</string>

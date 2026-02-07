@@ -80,6 +80,14 @@ class RegisterDesign(context: Context) : Design<RegisterDesign.Request>(context)
         withContext(Dispatchers.Main) {
             binding.showInviteCode = config.isInviteForce
             binding.showEmailVerify = config.isEmailVerify
+            if (config.emailWhitelistSuffix.isNotEmpty()) {
+                binding.emailSuffixHint = context.getString(
+                    R.string.email_suffix_hint,
+                    config.emailWhitelistSuffix.joinToString(", ")
+                )
+            } else {
+                binding.emailSuffixHint = ""
+            }
         }
     }
 

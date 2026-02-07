@@ -1,7 +1,6 @@
 package com.github.kr328.clash.service.v2board
 
 import android.content.Context
-import com.github.kr328.clash.common.log.Log
 import com.github.kr328.clash.service.store.AuthStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -21,33 +20,51 @@ class V2BoardApi(private val context: Context) {
     }
 
     private val client = OkHttpClient.Builder()
-        .connectTimeout(10, TimeUnit.SECONDS)
-        .readTimeout(10, TimeUnit.SECONDS)
-        .writeTimeout(10, TimeUnit.SECONDS)
+        .connectTimeout(15, TimeUnit.SECONDS)
+        .readTimeout(15, TimeUnit.SECONDS)
+        .writeTimeout(15, TimeUnit.SECONDS)
+        .followRedirects(false)
+        .followSslRedirects(false)
+        .addInterceptor { chain ->
+            var request = chain.request()
+            var response = chain.proceed(request)
+            var redirectCount = 0
+            while (response.isRedirect && redirectCount < 5) {
+                val location = response.header("Location") ?: break
+                val newUrl = request.url.resolve(location) ?: break
+                response.close()
+                request = request.newBuilder()
+                    .url(newUrl)
+                    .build()
+                response = chain.proceed(request)
+                redirectCount++
+            }
+            response
+        }
         .build()
 
     private val authStore by lazy { AuthStore(context) }
 
     private fun baseUrl(): String {
-        return try {
+        val raw = try {
             val clazz = Class.forName("com.github.kr328.clash.BuildConfig")
             val field = clazz.getField("API_BASE_URL")
             field.get(null) as? String ?: "https://example.com/api/v1"
         } catch (e: Exception) {
             "https://example.com/api/v1"
         }
+        return raw.trimEnd('/')
     }
 
     private fun buildRequest(endpoint: String, method: String, body: RequestBody? = null): Request {
-        val builder = Request.Builder()
-            .url(baseUrl() + endpoint)
+        val url = baseUrl() + endpoint
+        val builder = Request.Builder().url(url)
 
         val authData = authStore.authData
         if (authData.isNotBlank()) {
             builder.header("Authorization", authData)
         }
 
-        builder.header("Content-Type", "application/json")
         builder.header("Accept", "application/json")
 
         when (method) {
@@ -105,6 +122,9 @@ class V2BoardApi(private val context: Context) {
                     json.parseToJsonElement(responseBody).jsonObject["message"]?.jsonPrimitive?.content
                 } catch (e: Exception) { null }
                 ApiResult.AuthError(message ?: "Authentication failed")
+            }
+            405 -> {
+                ApiResult.ServerError("Method Not Allowed (405). Please check API_BASE_URL configuration.")
             }
             422 -> {
                 try {

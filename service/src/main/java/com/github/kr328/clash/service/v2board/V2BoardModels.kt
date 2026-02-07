@@ -43,7 +43,9 @@ data class SystemConfig(
     @SerialName("recaptcha_site_key") val recaptchaSiteKey: String? = null,
     @SerialName("app_description") val appDescription: String? = null,
     @SerialName("app_url") val appUrl: String? = null,
-    @SerialName("tos_url") val tosUrl: String? = null
+    @SerialName("tos_url") val tosUrl: String? = null,
+    @SerialName("email_whitelist_suffix") val emailWhitelistSuffix: List<String> = emptyList(),
+    @SerialName("email_gmail_limit_enable") val emailGmailLimitEnable: Boolean = false
 )
 
 @Serializable

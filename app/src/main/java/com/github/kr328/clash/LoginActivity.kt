@@ -1,20 +1,38 @@
 package com.github.kr328.clash
 
+import android.app.AlertDialog
 import com.github.kr328.clash.common.util.intent
 import com.github.kr328.clash.design.LoginDesign
 import com.github.kr328.clash.service.model.Profile
+import com.github.kr328.clash.service.store.AuthStore
 import com.github.kr328.clash.service.v2board.ApiResult
 import com.github.kr328.clash.service.v2board.V2BoardRepository
 import com.github.kr328.clash.util.withProfile
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.selects.select
+import kotlinx.coroutines.withContext
 
 class LoginActivity : BaseActivity<LoginDesign>() {
     private val repository by lazy { V2BoardRepository(this) }
+    private val authStore by lazy { AuthStore(this) }
+
+    private val languageOptions = arrayOf(
+        "system" to "Follow System",
+        "en" to "English",
+        "zh" to "简体中文",
+        "zh-TW" to "繁體中文",
+        "ja" to "日本語",
+        "ko" to "한국어",
+        "ru" to "Русский",
+        "vi" to "Tiếng Việt"
+    )
 
     override suspend fun main() {
         val design = LoginDesign(this)
         setContentDesign(design)
+
+        design.setLanguageLabel(getLanguageLabel())
 
         while (isActive) {
             select<Unit> {
@@ -29,6 +47,9 @@ class LoginActivity : BaseActivity<LoginDesign>() {
                         }
                         LoginDesign.Request.OpenForgotPassword -> {
                             startActivity(ForgotPasswordActivity::class.intent)
+                        }
+                        LoginDesign.Request.ChangeLanguage -> {
+                            handleChangeLanguage()
                         }
                     }
                 }
@@ -107,6 +128,29 @@ class LoginActivity : BaseActivity<LoginDesign>() {
                 finish()
             }
         }
+    }
+
+    private suspend fun handleChangeLanguage() {
+        val labels = languageOptions.map { it.second }.toTypedArray()
+        val currentLang = authStore.language.ifBlank { "system" }
+        val currentIndex = languageOptions.indexOfFirst { it.first == currentLang }.coerceAtLeast(0)
+
+        withContext(Dispatchers.Main) {
+            AlertDialog.Builder(this@LoginActivity)
+                .setTitle(com.github.kr328.clash.design.R.string.select_language)
+                .setSingleChoiceItems(labels, currentIndex) { dialog, which ->
+                    val selectedLang = languageOptions[which].first
+                    authStore.language = if (selectedLang == "system") "" else selectedLang
+                    dialog.dismiss()
+                    recreate()
+                }
+                .show()
+        }
+    }
+
+    private fun getLanguageLabel(): String {
+        val lang = authStore.language.ifBlank { "system" }
+        return languageOptions.firstOrNull { it.first == lang }?.second ?: "Follow System"
     }
 
     override fun shouldDisplayHomeAsUpEnabled() = false

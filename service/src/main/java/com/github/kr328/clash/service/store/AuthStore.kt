@@ -31,6 +31,11 @@ class AuthStore(context: Context) {
         defaultValue = ""
     )
 
+    var language: String by store.string(
+        key = "language",
+        defaultValue = ""
+    )
+
     val isLoggedIn: Boolean get() = authData.isNotBlank()
 
     fun clear() {

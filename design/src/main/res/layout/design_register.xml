@@ -26,6 +26,9 @@
         <variable
             name="emailCodeCooldown"
             type="int" />
+        <variable
+            name="emailSuffixHint"
+            type="String" />
 
         <import type="android.view.View" />
     </data>
@@ -102,6 +105,16 @@
                         android:inputType="textEmailAddress"
                         android:enabled="@{!loading}" />
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:paddingHorizontal="4dp"
+                    android:text="@{emailSuffixHint}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textColor="?attr/colorPrimary"
+                    android:visibility="@{emailSuffixHint != null &amp;&amp; !emailSuffixHint.isEmpty() ? View.VISIBLE : View.GONE}" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
