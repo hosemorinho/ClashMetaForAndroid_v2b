@@ -122,7 +122,7 @@ class V2BoardApi(private val context: Context) {
                 val message = try {
                     json.parseToJsonElement(responseBody).jsonObject["message"]?.jsonPrimitive?.content
                 } catch (e: Exception) { null }
-                ApiResult.ServerError(message ?: "Server error (${ response.code })")
+                ApiResult.ServerError(message ?: "Server error (${response.code})")
             }
             else -> {
                 val message = try {
