@@ -13,7 +13,8 @@ import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 class V2BoardApi(private val context: Context) {
-    private val json = Json {
+    @PublishedApi
+    internal val json = Json {
         ignoreUnknownKeys = true
         coerceInputValues = true
         isLenient = true
