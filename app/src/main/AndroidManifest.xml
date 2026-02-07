@@ -9,6 +9,7 @@
         android:name="android.hardware.touchscreen"
         android:required="false" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission
@@ -177,6 +178,41 @@
             android:configChanges="uiMode"
             android:exported="false"
             android:label="@string/files" />
+        <activity
+            android:name=".LoginActivity"
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:label="@string/sign_in" />
+        <activity
+            android:name=".RegisterActivity"
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:label="@string/sign_up" />
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:label="@string/forgot_password" />
+        <activity
+            android:name=".DashboardActivity"
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:label="@string/dashboard" />
+        <activity
+            android:name=".UserInfoActivity"
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:label="@string/user_info" />
+        <activity
+            android:name=".PurchaseActivity"
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:label="@string/purchase_plan" />
+        <activity
+            android:name=".CheckoutActivity"
+            android:configChanges="uiMode"
+            android:exported="false"
+            android:label="@string/checkout" />
 
         <service
             android:name=".LogcatService"

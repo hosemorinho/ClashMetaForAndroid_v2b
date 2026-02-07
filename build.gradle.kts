@@ -50,6 +50,11 @@ subprojects {
                 applicationId = customApplicationId.takeIf { it?.isNotBlank() == true } ?: "com.github.metacubex.clash"
             }
 
+            val apiBaseUrl = System.getenv("API_BASE_URL")
+                ?: queryConfigProperty("api.base.url") as? String
+                ?: "https://example.com/api/v1"
+            buildConfigField("String", "API_BASE_URL", "\"$apiBaseUrl\"")
+
             project.name.let { name ->
                 namespace = if (name == "app") "com.github.kr328.clash"
                 else "com.github.kr328.clash.$name"

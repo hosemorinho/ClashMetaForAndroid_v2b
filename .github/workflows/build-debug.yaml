@@ -63,6 +63,8 @@ jobs:
 
       - name: Build
         if: success()
+        env:
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
         run: ./gradlew --no-daemon app:assembleAlphaRelease
           
       - name: Upload Aritfact (universal)

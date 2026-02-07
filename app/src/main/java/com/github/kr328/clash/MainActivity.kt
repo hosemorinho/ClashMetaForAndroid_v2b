@@ -12,6 +12,7 @@ import com.github.kr328.clash.common.util.intent
 import com.github.kr328.clash.common.util.ticker
 import com.github.kr328.clash.design.MainDesign
 import com.github.kr328.clash.design.ui.ToastDuration
+import com.github.kr328.clash.service.store.AuthStore
 import com.github.kr328.clash.util.startClashService
 import com.github.kr328.clash.util.stopClashService
 import com.github.kr328.clash.util.withClash
@@ -26,6 +27,18 @@ import com.github.kr328.clash.design.R
 
 class MainActivity : BaseActivity<MainDesign>() {
     override suspend fun main() {
+        val authStore = AuthStore(this)
+        if (!authStore.isLoggedIn) {
+            val result = startActivityForResult(
+                ActivityResultContracts.StartActivityForResult(),
+                LoginActivity::class.intent
+            )
+            if (result.resultCode != RESULT_OK) {
+                finish()
+                return
+            }
+        }
+
         val design = MainDesign(this)
 
         setContentDesign(design)
@@ -72,6 +85,22 @@ class MainActivity : BaseActivity<MainDesign>() {
                             startActivity(HelpActivity::class.intent)
                         MainDesign.Request.OpenAbout ->
                             design.showAbout(queryAppVersionName())
+                        MainDesign.Request.OpenDashboard ->
+                            startActivity(DashboardActivity::class.intent)
+                        MainDesign.Request.OpenUserInfo ->
+                            startActivity(UserInfoActivity::class.intent)
+                        MainDesign.Request.Logout -> {
+                            AuthStore(this@MainActivity).clear()
+                            val loginResult = startActivityForResult(
+                                ActivityResultContracts.StartActivityForResult(),
+                                LoginActivity::class.intent
+                            )
+                            if (loginResult.resultCode != RESULT_OK) {
+                                finish()
+                                return@onReceive
+                            }
+                            design.fetch()
+                        }
                     }
                 }
                 if (clashRunning) {

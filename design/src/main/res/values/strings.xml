@@ -348,4 +348,79 @@
     <string name="hide_app_icon_desc">You can dial *#*#252746382#*#* to open this App</string>
     <string name="import_from_qr_no_permission">Camera access is restricted. Please enable it in Settings.</string>
     <string name="import_from_qr_exception">An unhandled system exception occurred.</string>
+
+    <!-- Auth -->
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in_subtitle">Sign in to your account</string>
+    <string name="sign_up_subtitle">Create a new account</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="new_password">New Password</string>
+    <string name="invite_code">Invite Code</string>
+    <string name="email_code">Email Code</string>
+    <string name="send_code">Send Code</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="forgot_password_link">Forgot Password?</string>
+    <string name="forgot_password_subtitle">Reset your password via email</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="no_account">Don\'t have an account?</string>
+    <string name="have_account">Already have an account?</string>
+    <string name="remember_password">Remember your password?</string>
+    <string name="email_required">Email is required</string>
+    <string name="password_required">Password is required</string>
+    <string name="passwords_not_match">Passwords do not match</string>
+    <string name="email_code_required">Email code is required</string>
+    <string name="network_error">Network error. Please check your connection.</string>
+    <string name="send_code_failed">Failed to send verification code</string>
+    <string name="password_reset_success">Password reset successfully</string>
+    <string name="logout">Logout</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard">Dashboard</string>
+    <string name="user_info">User Info</string>
+    <string name="no_plan">No Plan</string>
+    <string name="no_expiry">No expiry</string>
+    <string name="format_data_usage">%1$s / %2$s</string>
+    <string name="format_expires">Expires: %s</string>
+    <string name="format_server_nodes">Server Nodes (%d)</string>
+    <string name="purchase_plan">Purchase Plan</string>
+
+    <!-- User Info -->
+    <string name="account_info">Account Information</string>
+    <string name="current_plan">Current Plan</string>
+    <string name="data_usage">Data Usage</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="account_balance">Balance</string>
+
+    <!-- Purchase -->
+    <string name="choose_plan">Choose a Plan</string>
+    <string name="choose_plan_subtitle">Select a subscription plan</string>
+    <string name="format_price_month">%s/mo</string>
+    <string name="format_price_quarter">%s/quarter</string>
+    <string name="format_price_year">%s/year</string>
+    <string name="format_price_onetime">%s one-time</string>
+    <string name="free">Free</string>
+
+    <!-- Checkout -->
+    <string name="checkout">Checkout</string>
+    <string name="order_summary">Order Summary</string>
+    <string name="plan_label">Plan</string>
+    <string name="period_label">Period</string>
+    <string name="select_period">Select Period</string>
+    <string name="coupon_code">Coupon Code (Optional)</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="pay_now">Pay Now</string>
+    <string name="monthly">Monthly</string>
+    <string name="quarterly">Quarterly</string>
+    <string name="semi_annually">Semi-Annually</string>
+    <string name="annually">Annually</string>
+    <string name="two_years">2 Years</string>
+    <string name="three_years">3 Years</string>
+    <string name="one_time">One Time</string>
+    <string name="payment_success">Payment successful</string>
+    <string name="checkout_failed">Checkout failed</string>
+    <string name="order_failed">Failed to create order</string>
+    <string name="unable_to_open_payment">Unable to open payment page</string>
 </resources>
