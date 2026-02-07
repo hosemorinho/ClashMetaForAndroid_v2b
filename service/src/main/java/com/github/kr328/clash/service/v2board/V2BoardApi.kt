@@ -133,7 +133,7 @@ class V2BoardApi(private val context: Context) {
         }
     }
 
-    inline fun <reified T> decode(element: JsonElement): T {
+    internal inline fun <reified T> decode(element: JsonElement): T {
         return json.decodeFromJsonElement(element)
     }
 
