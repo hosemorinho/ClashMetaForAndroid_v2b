@@ -1,6 +1,7 @@
 package com.github.kr328.clash.service.v2board
 
 import android.content.Context
+import com.github.kr328.clash.service.BuildConfig
 import com.github.kr328.clash.service.store.AuthStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -46,14 +47,7 @@ class V2BoardApi(private val context: Context) {
     private val authStore by lazy { AuthStore(context) }
 
     private fun baseUrl(): String {
-        val raw = try {
-            val clazz = Class.forName("com.github.kr328.clash.BuildConfig")
-            val field = clazz.getField("API_BASE_URL")
-            field.get(null) as? String ?: "https://example.com/api/v1"
-        } catch (e: Exception) {
-            "https://example.com/api/v1"
-        }
-        return raw.trimEnd('/')
+        return BuildConfig.API_BASE_URL.trimEnd('/')
     }
 
     private fun buildRequest(endpoint: String, method: String, body: RequestBody? = null): Request {
