@@ -24,6 +24,7 @@ class LoginDesign(context: Context) : Design<LoginDesign.Request>(context) {
 
     init {
         binding.self = this
+        binding.languageLabel = ""
     }
 
     fun requestLogin() {

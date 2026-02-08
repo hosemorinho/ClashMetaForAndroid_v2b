@@ -86,25 +86,27 @@ abstract class BaseActivity<D : Design<*>> : AppCompatActivity(),
     }
 
     override fun attachBaseContext(newBase: Context) {
-        val prefs = newBase.getSharedPreferences("v2board_auth", Context.MODE_PRIVATE)
-        val lang = prefs.getString("language", "") ?: ""
-        if (lang.isNotBlank() && lang != "system") {
-            val locale = when (lang) {
-                "zh" -> Locale.SIMPLIFIED_CHINESE
-                "zh-TW" -> Locale.TRADITIONAL_CHINESE
-                "ja" -> Locale.JAPANESE
-                "en" -> Locale.ENGLISH
-                "ru" -> Locale("ru")
-                "ko" -> Locale.KOREAN
-                "vi" -> Locale("vi")
-                else -> Locale.getDefault()
+        try {
+            val prefs = newBase.getSharedPreferences("v2board_auth", Context.MODE_PRIVATE)
+            val lang = prefs.getString("language", "") ?: ""
+            if (lang.isNotBlank() && lang != "system") {
+                val locale = when (lang) {
+                    "zh" -> Locale.SIMPLIFIED_CHINESE
+                    "zh-TW" -> Locale.TRADITIONAL_CHINESE
+                    "ja" -> Locale.JAPANESE
+                    "en" -> Locale.ENGLISH
+                    "ru" -> Locale("ru")
+                    "ko" -> Locale.KOREAN
+                    "vi" -> Locale("vi")
+                    else -> Locale.getDefault()
+                }
+                val config = Configuration(newBase.resources.configuration)
+                config.setLocale(locale)
+                super.attachBaseContext(newBase.createConfigurationContext(config))
+                return
             }
-            val config = Configuration(newBase.resources.configuration)
-            config.setLocale(locale)
-            super.attachBaseContext(newBase.createConfigurationContext(config))
-        } else {
-            super.attachBaseContext(newBase)
-        }
+        } catch (_: Exception) { }
+        super.attachBaseContext(newBase)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

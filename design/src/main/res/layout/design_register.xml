@@ -111,10 +111,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:paddingHorizontal="4dp"
-                    android:text="@{emailSuffixHint}"
+                    android:text="@{emailSuffixHint ?? ``}"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                     android:textColor="?attr/colorPrimary"
-                    android:visibility="@{emailSuffixHint != null &amp;&amp; !emailSuffixHint.isEmpty() ? View.VISIBLE : View.GONE}" />
+                    android:visibility="@{emailSuffixHint != null &amp;&amp; !emailSuffixHint.empty ? View.VISIBLE : View.GONE}" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"

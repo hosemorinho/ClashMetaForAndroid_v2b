@@ -29,6 +29,7 @@ class RegisterDesign(context: Context) : Design<RegisterDesign.Request>(context)
 
     init {
         binding.self = this
+        binding.emailSuffixHint = ""
     }
 
     fun requestRegisterAction() {

@@ -150,7 +150,8 @@ class LoginActivity : BaseActivity<LoginDesign>() {
 
     private fun getLanguageLabel(): String {
         val lang = authStore.language.ifBlank { "system" }
-        return languageOptions.firstOrNull { it.first == lang }?.second ?: "Follow System"
+        val name = languageOptions.firstOrNull { it.first == lang }?.second ?: "Follow System"
+        return "$name \u25BE"
     }
 
     override fun shouldDisplayHomeAsUpEnabled() = false
